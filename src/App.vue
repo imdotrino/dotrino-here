@@ -60,7 +60,7 @@ function openMyProfile () {
       </button>
       <dotrino-support class="topbar-coin"
         href="https://ko-fi.com/dotrino"
-        repo="dotrino/here"
+        repo="imdotrino/dotrino-here"
         discord="https://discord.gg/D648uq7cth"
         :lang="lang"></dotrino-support>
     </div>

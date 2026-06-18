@@ -103,19 +103,19 @@ Pages, deploy por **GitHub Actions** — `.github/workflows/deploy.yml`). Seguir
 
 ## Pendiente — registro en el catálogo del ecosistema
 
-> **NO se ha registrado todavía en el catálogo** (`dotrino/src/App.vue`),
+> **NO se ha registrado todavía en el catálogo** (`dotrino-home/src/App.vue`),
 > a propósito (este scaffold no toca ese repo). Para lanzar la app hay que, según
 > `CONVENCIONES-APPS.md` §11.4:
 >
-> 1. Copiar `public/icon.svg` → `dotrino/src/assets/apps/here.svg`.
-> 2. En `dotrino/src/App.vue`: `import hereLogo from './assets/apps/here.svg'`
+> 1. Copiar `public/icon.svg` → `dotrino-home/src/assets/apps/here.svg`.
+> 2. En `dotrino-home/src/App.vue`: `import hereLogo from './assets/apps/here.svg'`
 >    y añadir al array `apps`:
 >    ```js
 >    {
 >      name: 'Here',
 >      url: 'https://here.dotrino.com/',
 >      logo: hereLogo,
->      repo: 'dotrino/here',
+>      repo: 'imdotrino/dotrino-here',
 >      cat: 'apps',
 >      desc: {
 >        es: 'Ubicación familiar cifrada: círculos privados + config de OwnTracks por QR.',
