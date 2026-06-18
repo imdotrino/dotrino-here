@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Here — Dotrino</title>
+  <link rel="icon" type="image/svg+xml" href="./icon.svg" />
+  <link rel="apple-touch-icon" href="./icon-192.png" />
+  <link rel="manifest" href="./manifest.webmanifest" />
+
+  <meta name="theme-color" content="#0c1a16" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Here" />
+
+  <meta name="description" content="Configurador de ubicación familiar para OwnTracks sobre el pilar geo de Dotrino: arma círculos privados, emite permisos firmados por dispositivo y genera la config de OwnTracks por QR. Tu ubicación cifrada, en tu servidor, bajo tus reglas." />
+  <link rel="canonical" href="https://here.dotrino.com/" />
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:locale" content="es_ES" />
+  <meta property="og:site_name" content="Dotrino" />
+  <meta property="og:title" content="Here" />
+  <meta property="og:description" content="Configurador de OwnTracks para compartir ubicación en círculos privados y cifrados. Permisos firmados por dispositivo; el mapa lo pone OwnTracks." />
+  <meta property="og:url" content="https://here.dotrino.com/" />
+  <meta property="og:image" content="https://here.dotrino.com/og.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Here" />
+  <meta name="twitter:description" content="Configurador de OwnTracks para compartir ubicación en círculos privados y cifrados." />
+  <meta name="twitter:image" content="https://here.dotrino.com/og.jpg" />
+
+  <!-- Analítica cookieless autohosteada (GoatCounter); no cuenta en localhost/LAN. -->
+  <script>window.goatcounter={path:function(p){return location.hostname+p}}</script>
+  <script data-goatcounter="https://goat.dotrino.com/count" async src="https://goat.dotrino.com/count.js"></script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "WebApplication",
+    "name": "Here",
+    "url": "https://here.dotrino.com/",
+    "description": "Configurador de OwnTracks para compartir ubicación en círculos privados y cifrados sobre el pilar geo de Dotrino.",
+    "applicationCategory": "UtilitiesApplication",
+    "operatingSystem": "Web",
+    "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+    "publisher": { "@type": "Organization", "name": "Dotrino", "url": "https://dotrino.com/" }
+  }
+  </script>
+</head>
+<body>
+  <div id="app"></div>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>

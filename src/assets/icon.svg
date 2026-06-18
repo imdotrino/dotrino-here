@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#22d3aa"/><stop offset="1" stop-color="#0e7c63"/>
+    </linearGradient>
+  </defs>
+  <rect width="120" height="120" rx="26" fill="#0c1a16"/>
+  <!-- pin / "you are here": gota con anillo de proximidad, safe-zone para maskable -->
+  <g>
+    <!-- anillo de proximidad (círculo) -->
+    <circle cx="60" cy="56" r="34" fill="none" stroke="url(#g)" stroke-width="6" opacity="0.35"/>
+    <!-- gota del pin -->
+    <path d="M60 22c-13.8 0-25 11.2-25 25 0 18 25 43 25 43s25-25 25-43c0-13.8-11.2-25-25-25z" fill="url(#g)"/>
+    <!-- centro -->
+    <circle cx="60" cy="47" r="10" fill="#0c1a16"/>
+  </g>
+</svg>

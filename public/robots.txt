@@ -1,0 +1,7 @@
+# Solo la cáscara pública de la herramienta es indexable.
+# Los círculos, dispositivos, permisos y la clave de cada círculo son datos del
+# usuario: nunca llegan al índice (no se prerenderizan ni se exponen en rutas).
+User-agent: *
+Allow: /
+
+Sitemap: https://here.dotrino.com/sitemap.xml
