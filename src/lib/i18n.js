@@ -73,7 +73,6 @@ export const MESSAGES = {
     // common
     needVault: 'Conéctate a tu identidad (id.dotrino.com) para firmar permisos.',
     standalone: 'Sin identidad: estás en modo demostración. Los permisos no se firman.',
-    myProfile: 'Mi perfil',
     yes: 'Sí', no: 'No'
   },
   en: {
@@ -141,17 +140,31 @@ export const MESSAGES = {
     setupClosed: 'Important: without the encryption key the server drops your position and it is not shared. Private by default: only your circle sees you, no broadcast or proximity.',
     needVault: 'Connect to your identity (id.dotrino.com) to sign permissions.',
     standalone: 'No identity: you are in demo mode. Permissions are not signed.',
-    myProfile: 'My profile',
     yes: 'Yes', no: 'No'
   }
 }
 
+// El idioma lo persiste <dotrino-topbar> en 'dotrino.lang' (clave compartida por
+// todo el ecosistema: eliges idioma una vez y vale en todas las apps). Aquí solo
+// LEEMOS esa clave para el primer render; el cambio llega por el evento
+// 'dotrino-lang'. Por eso ya no existe saveLang().
+const LANG_KEY = 'dotrino.lang'
+const LEGACY_LANG_KEY = 'here:lang'
+
 export function detectLang () {
-  const saved = localStorage.getItem('here:lang')
+  // Migración única de la preferencia vieja y propia de "here" (borrando la
+  // clave para no volver a pisar la del ecosistema): quien ya había elegido
+  // idioma no se ve reseteado por la migración al topbar.
+  try {
+    const legacy = localStorage.getItem(LEGACY_LANG_KEY)
+    if (legacy === 'es' || legacy === 'en') {
+      localStorage.setItem(LANG_KEY, legacy)
+      localStorage.removeItem(LEGACY_LANG_KEY)
+    }
+  } catch (_) {}
+
+  let saved = null
+  try { saved = localStorage.getItem(LANG_KEY) } catch (_) {}
   if (saved === 'es' || saved === 'en') return saved
   return (navigator.language || 'es').toLowerCase().startsWith('en') ? 'en' : 'es'
-}
-
-export function saveLang (lang) {
-  try { localStorage.setItem('here:lang', lang) } catch (_) {}
 }

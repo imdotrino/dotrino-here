@@ -58,39 +58,22 @@ input, select {
 }
 input:focus, select:focus { border-color: var(--accent); }
 
-/* ── topbar ── */
-.topbar {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  padding: 10px 14px;
-  padding-top: calc(10px + env(safe-area-inset-top));
-  border-bottom: 1px solid var(--line);
-  background: var(--bg-2);
+/* ── topbar (Web Component compartido, CONVENCIONES §5) ──
+   El header es <dotrino-topbar>: aquí solo lo anclamos (el .bar del componente
+   no es sticky) y le pasamos el tema verde de "here" por variables. La marca,
+   el toggle de idioma, el botón de perfil y la moneda viven dentro del
+   componente: NO se re-arman aquí. La fila móvil ya la trae él. */
+dotrino-topbar {
   position: sticky;
   top: 0;
   z-index: 20;
-}
-.brand { display: flex; align-items: center; gap: 9px; font-weight: 700; letter-spacing: .3px; order: 0; }
-.brand img { width: 28px; height: 28px; }
-.topbar-actions { display: flex; align-items: center; gap: 8px; margin-left: auto; order: 1; }
-
-.lang-selector { display: inline-flex; border: 1px solid var(--line); border-radius: 9px; overflow: hidden; }
-.lang-selector button { border: 0; border-radius: 0; padding: 6px 10px; background: transparent; }
-.lang-selector button.on { background: var(--accent-2); color: #eafff8; }
-
-.profile-btn {
-  width: 36px; height: 36px; padding: 0;
-  display: inline-grid; place-items: center;
-  border-radius: 50%; background: transparent;
-}
-.profile-btn svg { width: 20px; height: 20px; }
-
-.topbar-coin { display: inline-flex; }
-
-@media (max-width: 560px) {
-  .topbar-actions { flex-basis: 100%; justify-content: flex-end; margin-left: 0; }
+  --dotrino-topbar-bg: var(--bg-2);
+  --dotrino-topbar-border: var(--line);
+  --dotrino-topbar-text: var(--ink);
+  --dotrino-topbar-muted: var(--muted);
+  --dotrino-topbar-accent: var(--accent-2);
+  --dotrino-topbar-accent-text: #eafff8;
+  --dotrino-topbar-pad: 10px 14px;
 }
 
 /* ── tabs ── */

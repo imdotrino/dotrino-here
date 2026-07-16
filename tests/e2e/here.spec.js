@@ -27,8 +27,10 @@ async function resetApp (page) {
   await page.goto('/')
   await page.evaluate((key) => {
     localStorage.removeItem(key)
-    // Forzamos español para que las aserciones por texto sean estables.
-    localStorage.setItem('here:lang', 'es')
+    // Forzamos español para que las aserciones por texto sean estables. La clave
+    // es la del ecosistema ('dotrino.lang'): la persiste <dotrino-topbar>, que
+    // es ahora el dueño del idioma (la vieja 'here:lang' solo se migra una vez).
+    localStorage.setItem('dotrino.lang', 'es')
   }, LS_KEY)
   await page.reload()
   // La app está lista cuando la barra de tabs está montada.

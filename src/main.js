@@ -1,13 +1,11 @@
 import { createApp } from 'vue'
 import App from './App.vue'
-import '@dotrino/support'
-import { createBackNav } from '@dotrino/nav'
 import './style.css'
 
-// Navegación "volver" unificada del ecosistema (chevron flotante + botón físico
-// de Android / gesto de iOS / atrás del navegador → cierra modal; si no hay
-// nada → dotrino.com).
-createBackNav()
+// La moneda de support (<dotrino-support>) y la navegación "volver"
+// (@dotrino/nav: chevron + botón físico de Android / gesto de iOS / atrás del
+// navegador → cierra modal; si no hay nada → dotrino.com) las trae e instala
+// <dotrino-topbar> (ver App.vue). No las cableamos aquí: sería duplicarlas.
 
 // Registro del service worker (PWA) tras el load. CONVENCIONES §3.
 if ('serviceWorker' in navigator) {
