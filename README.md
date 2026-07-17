@@ -1,6 +1,6 @@
 # Here — configurador de OwnTracks para Dotrino
 
-> **Parte del ecosistema [Dotrino](https://dotrino.com).** Misión: aplicaciones que resuelven problemas comunes, respetando tu privacidad — sin anuncios, sin cookies, sin rastreo de datos, sin vender tu identidad a nadie.
+> **Parte del ecosistema [Dotrino](https://dotrino.com).** Dotrino es un ecosistema de aplicaciones centradas en la privacidad de los datos: tu información es tuya, y las decisiones sobre ella también — qué compartes, con quién, cuándo y por qué. Sin anuncios, sin cookies, sin rastreo de datos, sin vender tu identidad a nadie.
 
 **`here.dotrino.com`** es el **configurador** del pilar **geo** del ecosistema
 [Dotrino](https://dotrino.com/): arma **círculos** privados de ubicación,
