@@ -128,7 +128,7 @@ function fmtDate (ms) {
             <div class="sub mono">{{ d.deviceId.slice(0, 20) }}…</div>
             <div class="sub">
               <span class="pill" :class="{ ok: d.cert }">
-                {{ d.cert ? 'geo:publish + geo:read' : 'sin firma (demo)' }}
+                {{ d.cert ? t.devicePermOk : t.devicePermNone }}
               </span>
               <span class="pill">{{ t.expires }}: {{ fmtDate(d.exp) }}</span>
             </div>
