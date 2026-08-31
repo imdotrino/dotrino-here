@@ -1,7 +1,7 @@
 {
   "name": "Here — Dotrino",
   "short_name": "Here",
-  "description": "Configurador de OwnTracks: círculos privados de ubicación, permisos firmados por dispositivo y config por QR. Cifrado y autohosteado.",
+  "description": "Configurador de OwnTracks: círculos privados de ubicación, permisos firmados por dispositivo y config por QR. Tu ubicación cifrada, en tu propio servidor.",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",
