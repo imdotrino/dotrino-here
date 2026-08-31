@@ -2,7 +2,7 @@
 // network-first (los deploys se ven al instante; offline cae a caché), resto
 // cache-first con refresco en segundo plano. Subir N de CACHE en cada cambio de
 // assets cacheados.
-const CACHE = 'here-v1';
+const CACHE = 'here-v2';
 const ASSETS = [
   './',
   './index.html',
@@ -34,8 +34,8 @@ self.addEventListener('fetch', e => {
   // geo.dotrino.com, jsDelivr, GoatCounter…).
   if (url.origin !== self.location.origin) return;
 
-  const esNavegacion = e.request.mode === 'navigate' || e.request.destination === 'document';
-  if (esNavegacion) {
+  const isNavigation = e.request.mode === 'navigate' || e.request.destination === 'document';
+  if (isNavigation) {
     e.respondWith(
       fetch(e.request).then(res => {
         const copy = res.clone();

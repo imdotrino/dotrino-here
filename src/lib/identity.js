@@ -102,7 +102,7 @@ const HERE_BRIDGE_BASE = 'https://geo.dotrino.com'
  * @returns {Promise<{ok:boolean, status:number, body?:any}>}
  */
 export async function postRevokeToBridge ({ circleId, nonce, baseUrl = HERE_BRIDGE_BASE } = {}) {
-  if (!identity) return { ok: false, status: 0, body: { error: 'sin vault' } }
+  if (!identity) return { ok: false, status: 0, body: { error: 'no vault' } }
   if (!circleId || !nonce) throw new Error('postRevokeToBridge: missing circleId/nonce')
   // verifyEnvelope (server) lee data.publickey, así que DEBE ir embebido EN lo
   // firmado (no después). Resolvemos el pubkey maestro ANTES de firmar; si no lo
