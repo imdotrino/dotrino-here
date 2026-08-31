@@ -81,9 +81,9 @@ export async function memberWrapToken (memberPubkey) {
  *   miembro sepa qué entrada del wrap es la suya); skipped = miembros sin encPubkey.
  */
 export async function encryptCircleKey ({ circleKey, members, identity } = {}) {
-  if (!circleKey) throw new Error('encryptCircleKey: falta circleKey')
+  if (!circleKey) throw new Error('encryptCircleKey: missing circleKey')
   if (!identity || typeof identity.encrypt !== 'function') {
-    throw new Error('encryptCircleKey: falta identity (vault con encrypt)')
+    throw new Error('encryptCircleKey: missing identity (vault with encrypt)')
   }
   const list = Array.isArray(members) ? members : []
   const recipients = []
@@ -96,7 +96,7 @@ export async function encryptCircleKey ({ circleKey, members, identity } = {}) {
     recipients.push({ token, encryptionPubkey: m.encryptionPubkey })
     tokens[m.publickey] = token
   }
-  if (!recipients.length) throw new Error('encryptCircleKey: ningún miembro con encryptionPubkey')
+  if (!recipients.length) throw new Error('encryptCircleKey: no member has an encryptionPubkey')
   // ÚNICO punto de cifrado: el vault. Un wrap por destinatario; el `ct` (clave del
   // círculo) es el mismo para todos, cada wrap lo abre solo su dueño.
   const envelope = await identity.encrypt(recipients, circleKey)

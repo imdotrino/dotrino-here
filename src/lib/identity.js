@@ -22,7 +22,7 @@ export async function initIdentity () {
     identity = await Identity.connect()
     myPubkey = identity.me?.publickey || null
   } catch (e) {
-    console.warn('[here] vault inalcanzable; modo standalone:', e.message)
+    console.warn('[here] vault unreachable; standalone mode:', e.message)
     identity = null
   }
   return identity
@@ -71,7 +71,7 @@ export async function signCapForDevice ({ devicePublickey, scope, ttlMs, label }
   try {
     return await identity.signDelegation(devicePublickey, scope, { ttlMs, label })
   } catch (e) {
-    console.warn('[here] signDelegation falló', e)
+    console.warn('[here] signDelegation failed', e)
     return null
   }
 }
@@ -103,7 +103,7 @@ const HERE_BRIDGE_BASE = 'https://geo.dotrino.com'
  */
 export async function postRevokeToBridge ({ circleId, nonce, baseUrl = HERE_BRIDGE_BASE } = {}) {
   if (!identity) return { ok: false, status: 0, body: { error: 'sin vault' } }
-  if (!circleId || !nonce) throw new Error('postRevokeToBridge: faltan circleId/nonce')
+  if (!circleId || !nonce) throw new Error('postRevokeToBridge: missing circleId/nonce')
   // verifyEnvelope (server) lee data.publickey, así que DEBE ir embebido EN lo
   // firmado (no después). Resolvemos el pubkey maestro ANTES de firmar; si no lo
   // teníamos cacheado, una firma-sonda lo devuelve.
@@ -121,7 +121,7 @@ export async function postRevokeToBridge ({ circleId, nonce, baseUrl = HERE_BRID
     try { body = await res.json() } catch (_) {}
     return { ok: res.ok, status: res.status, body }
   } catch (e) {
-    console.warn('[here] postRevokeToBridge falló', e)
+    console.warn('[here] postRevokeToBridge failed', e)
     return { ok: false, status: 0, body: { error: e.message } }
   }
 }
@@ -136,7 +136,7 @@ export async function postRevokeToBridge ({ circleId, nonce, baseUrl = HERE_BRID
  * @returns {Promise<{ vault:any, bridge:{ok:boolean, status:number, body?:any} }>}
  */
 export async function revokeDevice ({ circleId, nonce, baseUrl } = {}) {
-  if (!nonce) throw new Error('revokeDevice: falta nonce')
+  if (!nonce) throw new Error('revokeDevice: missing nonce')
   const vault = await revokeCap(nonce)
   let bridge = { ok: false, status: 0, body: { error: 'sin circleId' } }
   if (circleId) bridge = await postRevokeToBridge({ circleId, nonce, baseUrl })
