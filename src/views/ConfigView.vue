@@ -11,6 +11,7 @@ import { circlesList } from '@/lib/circles'
 import {
   buildOwnTracksConfig, toOtrcText, toOtrcQrPayload, configSummary
 } from '@/lib/owntracks'
+import { sealerChain } from '@/lib/identity'
 
 const props = defineProps({ t: Object })
 
@@ -68,6 +69,9 @@ async function generate () {
   // El password es base64url(cert). Sin cert (demo) usamos un placeholder visible
   // para que el QR se vea; el bridge real rechazaría ese cert.
   const cert = d.cert || { v: 1, demo: true, note: 'sin-firma' }
+  // La cadena se pide AHORA, no al emparejar: es la del acta vigente, y un papel emitido
+  // contra un acta más nueva que la cadena presentada se rechaza (y con razón).
+  const chain = d.cert ? await sealerChain() : null
   // La clave del círculo SOLO se incrusta en la config de TU propio dispositivo
   // (el dueño configura su teléfono). Para un dispositivo de un TERCERO no va en
   // claro: ese miembro la recibe cifrada por el reparto (distributeCircleKey) y
@@ -76,6 +80,7 @@ async function generate () {
   config.value = buildOwnTracksConfig({
     circleId: c.id,
     cert,
+    chain,
     circleKey: embeddedKey,
     tid: d.tid || (d.label || '').slice(0, 2).toUpperCase(),
     deviceId: d.deviceId

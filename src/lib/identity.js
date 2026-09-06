@@ -76,6 +76,17 @@ export async function signCapForDevice ({ devicePublickey, scope, ttlMs, label }
   }
 }
 
+/**
+ * LA CADENA DE ACTAS del perfil. Viaja con el papel: desde que un papel no caduca por
+ * reloj, lo que puede una llave lo dice el acta, y sin ella el bridge no puede juzgarlo —
+ * responde 401 «sin-acta», que es lo correcto.
+ */
+export async function sealerChain () {
+  if (!identity) return null
+  try { return await identity.sealerChain() }
+  catch (e) { console.warn('[here] sealerChain failed', e); return null }
+}
+
 /** Revoca un cap por su nonce (mango de revocación). */
 export async function revokeCap (nonce) {
   if (!identity) return null

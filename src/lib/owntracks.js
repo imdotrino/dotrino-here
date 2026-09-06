@@ -7,7 +7,7 @@
 // Contrato del bridge cerrado (dotrino-geo, ruta nueva POST /here):
 //   · Auth: HTTP Basic
 //       username = circleId
-//       password = base64url(JSON.stringify(cert))   ← cap del dispositivo
+//       password = base64url(JSON.stringify({cert, chain}))   ← cap del dispositivo + acta
 //   · URL = https://geo.dotrino.com/here  (modo HTTP de OwnTracks)
 //   · Encryption key = la clave del círculo (secretbox) → OwnTracks cifra el
 //     payload localmente y descifra a los amigos para pintarlos en el mapa.
@@ -43,13 +43,17 @@ export function base64std (obj) {
  * @param {object} p
  * @param {string} p.circleId   - pubkeyId(owner):slug
  * @param {object} p.cert       - certificado de delegación firmado por el vault
+ * @param {object[]} p.chain    - cadena de actas del perfil (sin ella el bridge no puede juzgar el papel)
  * @param {string} p.circleKey  - passphrase de cifrado del círculo (Encryption key)
  * @param {string} p.tid        - Tracker ID (2 chars) del dispositivo
  * @param {string} [p.deviceId] - id del dispositivo (para deviceId de OwnTracks)
  * @returns {object} config OwnTracks (.otrc)
  */
-export function buildOwnTracksConfig ({ circleId, cert, circleKey, tid, deviceId } = {}) {
-  const password = base64url(cert)
+export function buildOwnTracksConfig ({ circleId, cert, chain, circleKey, tid, deviceId } = {}) {
+  // El password lleva el PAPEL Y EL ACTA. Antes iba el papel suelto y el bridge lo
+  // rechazaba: un papel ya no caduca por reloj, lleva el `seq` del acta con la que se
+  // emitió, y para juzgarlo hay que ver esa acta.
+  const password = base64url(chain?.length ? { cert, chain } : cert)
   return {
     _type: 'configuration',
     // Conexión en modo HTTP contra el bridge de geo.
@@ -57,7 +61,7 @@ export function buildOwnTracksConfig ({ circleId, cert, circleKey, tid, deviceId
     url: GEO_HERE_URL,
     auth: true,
     username: circleId,          // ← circleId
-    password,                    // ← base64url(cert): el bridge lo parsea y verifica
+    password,                    // ← base64url({cert, chain}): el bridge lo parsea y verifica
     // Identidad del dispositivo dentro del círculo.
     deviceId: deviceId || tid || 'here',
     tid: (tid || '').slice(0, 2),
