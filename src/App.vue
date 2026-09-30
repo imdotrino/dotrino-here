@@ -2,6 +2,8 @@
 import { ref, computed, watchEffect, onMounted } from 'vue'
 import { MESSAGES, detectLang } from '@/lib/i18n'
 import { initIdentity, isIdentityReady } from '@/lib/identity'
+import { loadCircles } from '@/lib/circles'
+import { Store } from '@dotrino/store'
 import { getReputation } from '@/lib/reputation'
 // Barra superior estándar del ecosistema (CONVENCIONES §5): marca + volver +
 // idioma + perfil + moneda de support en UN componente. No re-armamos el header
@@ -57,7 +59,13 @@ onMounted(async () => {
   identityInst.value = identity
   hasVault.value = isIdentityReady()
   ready.value = true
-  if (identity) { try { reputationInst.value = await getReputation() } catch (_) {} }
+  // Los círculos viven en el almacén del perfil (lib/circles.js).
+  await loadCircles()
+  if (identity) {
+    // El estado del respaldo en la bóveda, en el botón de perfil (topbar ≥ 0.13).
+    Store.connect({ identity }).then((s) => { if (topbarRef.value) topbarRef.value.store = s }).catch(() => {})
+    try { reputationInst.value = await getReputation() } catch (_) {}
+  }
 })
 </script>
 

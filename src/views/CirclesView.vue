@@ -6,7 +6,7 @@ import { ref, computed } from 'vue'
 import { listVaultContacts, getMyPubkey, getIdentity } from '@/lib/identity'
 import {
   slugify, deriveCircleId, generateCircleKey, distributeCircleKey,
-  circlesList, saveCircle, deleteCircle
+  circlesList, saveCircle, deleteCircle, circlesStoreError
 } from '@/lib/circles'
 
 const props = defineProps({ t: Object })
@@ -106,6 +106,7 @@ function removeMember (circle, pubkey) {
   <div class="stack">
     <div class="card">
       <h2>{{ t.circlesTitle }}</h2>
+      <div v-if="circlesStoreError" class="banner warn" role="alert" data-testid="circles-store-error">{{ t.circlesStoreError }}</div>
       <p class="muted">{{ t.intro }}</p>
 
       <div class="row wrap" style="margin-top:10px">

@@ -12,6 +12,7 @@ export const MESSAGES = {
     tabConfig: 'Generar config',
     // circles
     circlesTitle: 'Tus círculos',
+    circlesStoreError: 'No se pudo abrir tu almacén: los cambios en tus círculos no se están guardando. Recarga la página.',
     circlesEmpty: 'Aún no tienes círculos. Crea uno para empezar.',
     newCircle: 'Nuevo círculo',
     circleNamePlaceholder: 'Nombre del círculo (ej. Familia)',
@@ -85,6 +86,7 @@ export const MESSAGES = {
     tabDevices: 'Devices',
     tabConfig: 'Generate config',
     circlesTitle: 'Your circles',
+    circlesStoreError: 'Could not open your storage: changes to your circles are not being saved. Reload the page.',
     circlesEmpty: 'You have no circles yet. Create one to start.',
     newCircle: 'New circle',
     circleNamePlaceholder: 'Circle name (e.g. Family)',
