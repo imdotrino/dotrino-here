@@ -2,6 +2,7 @@ import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import { fileURLToPath, URL } from 'node:url'
 import { execSync } from 'node:child_process'
+import prerender from '@dotrino/prerender/vite'
 
 // CONVENCIONES-APPS §1: base relativa para servir bajo el subdominio.
 // <meta name="commit"> con el hash del commit del build (CONVENCIONES-APPS §3).
@@ -19,7 +20,9 @@ function commitMeta () {
 export default defineConfig({
   base: './',
   // Los `dotrino-*` son Web Components (custom elements), no componentes Vue.
-  plugins: [commitMeta(), vue({ template: { compilerOptions: { isCustomElement: (tag) => tag.startsWith('dotrino-') } } })],
+  plugins: [
+    // El HTML llega con contenido para quien lo lee sin ejecutar JavaScript.
+    prerender(), commitMeta(), vue({ template: { compilerOptions: { isCustomElement: (tag) => tag.startsWith('dotrino-') } } })],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))

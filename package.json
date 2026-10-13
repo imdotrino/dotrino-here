@@ -19,6 +19,7 @@
     "vue": "3.5.25"
   },
   "devDependencies": {
+    "@dotrino/prerender": "0.1.0",
     "@playwright/test": "^1.60.0",
     "@vitejs/plugin-vue": "6.0.2",
     "typescript": "5.9.3",
