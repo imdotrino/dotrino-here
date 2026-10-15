@@ -26,20 +26,6 @@ const topbarRef = ref(null)
 const identityInst = ref(null)
 const reputationInst = ref(null)
 
-// Tema del modal de perfil (el topbar lo abre con <dotrino-profile mode="self">),
-// acorde al verde oscuro de "here". Sin esto la tarjeta saldría con el tema claro
-// por defecto del paquete.
-const profileTheme = {
-  '--ccp-bg': '#0c1a16', '--ccp-bg-2': '#0f221c', '--ccp-bg-3': '#11271f', '--ccp-bg-4': '#163025',
-  '--ccp-border': '#1e3a2e', '--ccp-text': '#e8f5ef', '--ccp-muted': '#8fb3a6',
-  '--ccp-accent': '#0e7c63', '--ccp-accent-2': '#0a5f4c', '--ccp-accent-text': '#eafff8',
-  '--ccp-gold': '#d4a72c', '--ccp-derived': '#8fb3a6',
-  '--ccp-online': '#22d3aa', '--ccp-affinity': '#2dd4bf',
-  '--ccp-input-bg': '#0f221c', '--ccp-radius': '14px',
-  '--ccp-font': 'system-ui, -apple-system, "Segoe UI", Roboto, sans-serif',
-  '--ccp-font-mono': 'ui-monospace, "SF Mono", Menlo, monospace'
-}
-
 // Los pilares se le pasan al topbar por PROPIEDAD JS (no atributo): con ellos
 // arma el provider del perfil (createVaultProfileProvider) él mismo.
 watchEffect(() => {
@@ -47,7 +33,6 @@ watchEffect(() => {
   if (!tb) return
   tb.identity = identityInst.value ?? null
   tb.reputation = reputationInst.value ?? null
-  tb.profileTheme = profileTheme
 })
 
 // El idioma lo manda el topbar (persiste en 'dotrino.lang', compartido con el
@@ -76,7 +61,7 @@ onMounted(async () => {
     :icon="iconUrl"
     brand-href="./"
     :lang.attr="lang"
-    profile
+    profile theme
     support-href="https://ko-fi.com/dotrino"
     support-repo="imdotrino/dotrino-here"
     support-discord="https://discord.gg/D648uq7cth"

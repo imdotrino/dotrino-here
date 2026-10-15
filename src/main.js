@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import App from './App.vue'
+import '@dotrino/theme/theme.css'
 import './style.css'
 
 // La moneda de support (<dotrino-support>) y la navegación "volver"

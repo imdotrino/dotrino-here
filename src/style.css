@@ -1,14 +1,15 @@
 :root {
-  --bg: #0c1a16;
-  --bg-2: #0f221c;
-  --panel: #11271f;
-  --panel-2: #163025;
-  --ink: #e8f5ef;
-  --muted: #8fb3a6;
-  --line: #1e3a2e;
-  --accent: #22d3aa;
-  --accent-2: #0e7c63;
-  --danger: #ef6f6f;
+  /* Colores del ecosistema (@dotrino/theme, CONVENCIONES §5): aquí solo se nombran. */
+  --bg: var(--dt-bg);
+  --bg-2: var(--dt-bg-2);
+  --panel: var(--dt-surface);
+  --panel-2: var(--dt-surface-2);
+  --ink: var(--dt-text);
+  --muted: var(--dt-text-dim);
+  --line: var(--dt-line-soft);
+  --accent: var(--dt-accent);
+  --accent-2: var(--dt-accent);
+  --danger: var(--dt-error);
   --radius: 14px;
 }
 
@@ -18,7 +19,7 @@ html, body {
   margin: 0;
   background: var(--bg);
   color: var(--ink);
-  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  font-family: var(--dt-font);
   -webkit-tap-highlight-color: transparent;
 }
 
@@ -38,12 +39,12 @@ button {
   transition: background .12s, border-color .12s, transform .06s;
   user-select: none;
 }
-button:hover { background: #1b3a2d; }
+button:hover { background: var(--dt-surface-3); }
 button:active { transform: translateY(1px); }
-button.primary { background: var(--accent-2); border-color: var(--accent); color: #eafff8; }
-button.primary:hover { background: #149e7f; }
+button.primary { background: var(--accent-2); border-color: var(--accent); color: var(--dt-accent-ink); }
+button.primary:hover { background: var(--dt-accent-press); }
 button.ghost { background: transparent; }
-button.danger { color: var(--danger); border-color: #5a2727; }
+button.danger { color: var(--danger); border-color: var(--dt-error); }
 button:disabled { opacity: .45; cursor: not-allowed; }
 
 input, select {
@@ -67,12 +68,6 @@ dotrino-topbar {
   position: sticky;
   top: 0;
   z-index: 20;
-  --dotrino-topbar-bg: var(--bg-2);
-  --dotrino-topbar-border: var(--line);
-  --dotrino-topbar-text: var(--ink);
-  --dotrino-topbar-muted: var(--muted);
-  --dotrino-topbar-accent: var(--accent-2);
-  --dotrino-topbar-accent-text: #eafff8;
   --dotrino-topbar-pad: 10px 14px;
 }
 
@@ -92,7 +87,7 @@ main { max-width: 720px; margin: 0 auto; padding: 14px; }
 .spacer { flex: 1; }
 
 .banner { padding: 10px 12px; border-radius: 10px; font-size: .9rem; margin-bottom: 12px; border: 1px solid var(--line); background: var(--bg-2); }
-.banner.warn { border-color: #5a4a27; background: #221d10; color: #ecd9a6; }
+.banner.warn { border-color: var(--dt-busy); background: var(--dt-surface-2); color: var(--dt-text); }
 
 .list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; }
 .list-item {
@@ -104,7 +99,7 @@ main { max-width: 720px; margin: 0 auto; padding: 14px; }
 .pill { font-size: .72rem; padding: 2px 8px; border-radius: 999px; border: 1px solid var(--line); color: var(--muted); }
 .pill.ok { color: var(--accent); border-color: var(--accent-2); }
 
-.mono { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .78rem; word-break: break-all; color: var(--muted); }
+.mono { font-family: var(--dt-font-mono); font-size: .78rem; word-break: break-all; color: var(--muted); }
 
 .qr-wrap { display: grid; place-items: center; gap: 12px; }
 .qr-wrap canvas, .qr-wrap img { background: #fff; padding: 10px; border-radius: 12px; }
