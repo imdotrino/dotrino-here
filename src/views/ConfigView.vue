@@ -1,12 +1,12 @@
 <script setup>
 // Pantalla GENERAR CONFIG — arma la config de OwnTracks para un dispositivo
-// pareado y la muestra como QR (autohosteado, librería `qrcode`, sin servicios
+// pareado y la muestra como QR (<dotrino-qr>, generado en el aparato, sin servicios
 // de terceros: la config lleva credenciales del usuario) + archivo .otrc.
 //
 // ESQUELETO: no llama al bridge ni al servidor; solo compone la config a partir
 // del circleId, el cert firmado por el vault y la clave del círculo, y la pinta.
-import { ref, computed, watch, nextTick } from 'vue'
-import QRCode from 'qrcode'
+import { ref, computed, watch } from 'vue'
+import '@dotrino/qr'
 import { circlesList } from '@/lib/circles'
 import {
   buildOwnTracksConfig, toOtrcText, toOtrcQrPayload, configSummary
@@ -19,7 +19,6 @@ const circles = circlesList   // store reactivo compartido
 const circleId = ref(circles.value[0]?.id || '')
 watch(circles, (list) => { if (!circleId.value && list.length) circleId.value = list[0].id }, { immediate: true })
 const deviceId = ref('')
-const canvas = ref(null)
 const config = ref(null)
 const copied = ref(false)
 
@@ -85,16 +84,6 @@ async function generate () {
     tid: d.tid || (d.label || '').slice(0, 2).toUpperCase(),
     deviceId: d.deviceId
   })
-  await nextTick()
-  await renderQr()
-}
-
-async function renderQr () {
-  if (!canvas.value || !config.value) return
-  const payload = toOtrcQrPayload(config.value)
-  try {
-    await QRCode.toCanvas(canvas.value, payload, { width: 256, margin: 1, errorCorrectionLevel: 'M' })
-  } catch (e) { console.warn('[here] QR render', e) }
 }
 
 function downloadOtrc () {
@@ -147,7 +136,7 @@ async function copyPayload () {
 
     <div v-else class="card">
       <div class="qr-wrap">
-        <canvas ref="canvas" data-testid="config-qr"></canvas>
+        <dotrino-qr :value="otHref" size="256" ecc="M" data-testid="config-qr"></dotrino-qr>
       </div>
 
       <div class="stack" style="margin-top:14px">

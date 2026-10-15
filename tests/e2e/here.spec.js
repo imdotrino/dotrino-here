@@ -220,23 +220,15 @@ test.describe('here — flujos core', () => {
     await expect(genBtn).toBeEnabled()
     await genBtn.click()
 
-    // El canvas del QR se renderiza con contenido (no en blanco): buildOwnTracksConfig
-    // + QRCode.toCanvas. Validamos que el canvas existe, es visible y tiene píxeles.
+    // El QR lo pinta <dotrino-qr> (@dotrino/qr) con el payload de la config: tiene
+    // que llevar el valor y haber dibujado módulos en su SVG.
     const qr = page.getByTestId('config-qr')
     await expect(qr).toBeVisible()
-    const drawn = await qr.evaluate((c) => {
-      const cv = /** @type {HTMLCanvasElement} */ (c)
-      if (!cv.width || !cv.height) return false
-      const ctx = cv.getContext('2d')
-      const { data } = ctx.getImageData(0, 0, cv.width, cv.height)
-      // Hay al menos un píxel no transparente/no blanco → el QR se pintó.
-      for (let i = 0; i < data.length; i += 4) {
-        const r = data[i], g = data[i + 1], b = data[i + 2], a = data[i + 3]
-        if (a !== 0 && !(r === 255 && g === 255 && b === 255)) return true
-      }
-      return false
+    const drawn = await qr.evaluate((el) => {
+      const svg = el.shadowRoot && el.shadowRoot.querySelector('svg')
+      return !!el.getAttribute('value') && !!svg && svg.querySelectorAll('g rect').length > 0
     })
-    expect(drawn, 'el QR debe pintarse en el canvas (no en blanco)').toBe(true)
+    expect(drawn, 'el QR debe pintarse con la config (no vacío)').toBe(true)
 
     // El summary aparece: URL del bridge + usuario = circleId. configSummary.
     // Scope a elementos VISIBLES: el circleId/URL también aparecen en otras vistas
