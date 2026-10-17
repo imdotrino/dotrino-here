@@ -16,14 +16,17 @@
 
 const GEO_HERE_URL = 'https://geo.dotrino.com/here'
 
-/** base64url(JSON) sin padding — formato del PASSWORD (cert) que el bridge parsea. */
-export function base64url (obj) {
-  const json = typeof obj === 'string' ? obj : JSON.stringify(obj)
-  // UTF-8 seguro
-  const bytes = new TextEncoder().encode(json)
+/** Bytes → base64url sin padding. */
+export function bytesToBase64url (bytes) {
   let bin = ''
   for (const b of bytes) bin += String.fromCharCode(b)
   return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+}
+
+/** base64url(JSON) sin padding — formato del PASSWORD (cert) que el bridge parsea. */
+export function base64url (obj) {
+  const json = typeof obj === 'string' ? obj : JSON.stringify(obj)
+  return bytesToBase64url(new TextEncoder().encode(json))   // UTF-8 seguro
 }
 
 /** base64 ESTÁNDAR (con +/=). OwnTracks decodifica el `inline` con Base64.DEFAULT

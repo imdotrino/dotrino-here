@@ -17,6 +17,7 @@
 import { reactive, computed, ref } from 'vue'
 import { pubkeyId } from '@dotrino/identity/capabilities'
 import { Store } from '@dotrino/store'
+import { bytesToBase64url } from './owntracks.js'
 import { initIdentity } from './identity.js'
 
 /** slug seguro para usar dentro del circleId (ASCII, sin ':' ni espacios). */
@@ -51,9 +52,7 @@ export function generateCircleKey () {
   const bytes = new Uint8Array(32)
   crypto.getRandomValues(bytes)
   // base64url sin padding: imprimible y estable para el campo de OwnTracks.
-  let bin = ''
-  for (const b of bytes) bin += String.fromCharCode(b)
-  return btoa(bin).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '')
+  return bytesToBase64url(bytes)
 }
 
 /**
